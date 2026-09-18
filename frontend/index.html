@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaCheck - Sistem Resep Real-Time</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✚</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+
+<body>
+
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="logo">✚</div>
+                <h1>PharmaCheck</h1>
+                <p>Sistem Verifikasi Resep & Antrean Obat Real-Time</p>
+            </div>
+
+            <div class="role-selection">
+                <div class="role-card" onclick="showLoginForm('doctor')">
+                    <div class="role-icon">🩺</div>
+                    <h3>Dokter</h3>
+                    <p>Input pemeriksaan, resep, dan instruksi apoteker.</p>
+                </div>
+                <div class="role-card" onclick="showLoginForm('pharmacist')">
+                    <div class="role-icon">💊</div>
+                    <h3>Apoteker</h3>
+                    <p>Verifikasi resep dan atur antrean.</p>
+                </div>
+                <div class="role-card" onclick="showLoginForm('patient')">
+                    <div class="role-icon">👤</div>
+                    <h3>Pasien</h3>
+                    <p>Pantau antrean dari perangkat Anda.</p>
+                </div>
+            </div>
+
+            <div id="dynamicLoginForm" class="dynamic-login hidden">
+                <div class="form-header">
+                    <h3 id="formTitle">Login</h3>
+                    <button class="btn-icon" onclick="hideLoginForm()">✕</button>
+                </div>
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div id="formInputs"></div>
+                    <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainApp" class="app-container hidden">
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-small">✚</div>
+                <span>PharmaCheck</span>
+            </div>
+            <div class="user-info">
+                <span id="userNameDisplay">Nama Pengguna</span>
+                <span id="roleBadge" class="badge role-badge">Role</span>
+                <button class="btn btn-outline" onclick="logout()">Keluar</button>
+            </div>
+        </header>
+
+        <div class="app-layout">
+            <main id="contentArea" class="main-content">
+            </main>
+        </div>
+    </div>
+
+    <div id="toastContainer"></div>
+
+    <div id="modalContainer" class="modal-backdrop hidden" onclick="if(event.target === this) closeModal()">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Judul</h3>
+                <button class="btn-icon" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/doctor.js"></script>
+    <script src="js/pharmacist.js"></script>
+    <script src="js/patient.js"></script>
+</body>
+
+</html>

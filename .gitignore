@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Database file (berisi data lokal, jangan diupload)
+backend/database.sqlite
+
+# Environment variables
+backend/.env
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Package lock root (yang di root tidak diperlukan)
+/package-lock.json
