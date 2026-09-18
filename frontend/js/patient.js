@@ -9,7 +9,11 @@ function renderPatientDashboard() {
         </div>
     `;
 
-    if (prescriptions.length === 0) {
+    const patientPrescriptions = prescriptions.filter(p => 
+        p.patient_name && p.patient_name.trim().toLowerCase() === currentUser.trim().toLowerCase()
+    );
+
+    if (patientPrescriptions.length === 0) {
         if (!window.hasFetchedPatient) {
             window.hasFetchedPatient = true;
             refreshData();
@@ -17,14 +21,14 @@ function renderPatientDashboard() {
         
         html += `
             <div class="card" style="text-align: center; padding: 3rem;">
-                <h3 class="text-muted">Belum ada resep obat untuk Anda saat ini.</h3>
-                <p class="text-muted mt-4">Mohon tunggu dokter memasukkan resep Anda.</p>
+                <h3 class="text-muted">Belum ada resep obat untuk nama "${currentUser}" saat ini.</h3>
+                <p class="text-muted mt-4">Pastikan nama sesuai dengan yang didaftarkan dokter. Mohon tunggu dokter memasukkan resep Anda.</p>
             </div>
         `;
         return html;
     }
 
-    html += prescriptions.map(p => {
+    html += patientPrescriptions.map(p => {
         let statusText = '';
         let statusHint = '';
         

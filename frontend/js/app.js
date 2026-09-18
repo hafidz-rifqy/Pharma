@@ -62,7 +62,7 @@ function showLoginForm(role) {
             <div class="form-group">
                 <label>Nama Pasien</label>
                 <input type="text" id="loginName" value="${savedPatient}" placeholder="Masukkan nama Anda" required>
-                <p class="text-muted mt-4">Sistem akan memantau antrean khusus untuk nama ini pada perangkat ini.</p>
+                <p class="text-muted mt-4" style="color: var(--primary); font-weight: 500; font-size: 0.875rem;">Sesuaikan nama dengan di pendaftaran pasien dokternya</p>
             </div>
         `;
     }
@@ -128,7 +128,7 @@ async function refreshData() {
     try {
         let url = `${API_URL}/prescriptions`;
         if (currentRole === 'patient') {
-            url = `${API_URL}/prescriptions/patient/${encodeURIComponent(currentUser)}`;
+            url = `${API_URL}/prescriptions/patient/${encodeURIComponent(currentUser.trim())}`;
         }
 
         const res = await fetch(url);

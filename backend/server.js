@@ -41,8 +41,8 @@ app.get('/api/prescriptions', (req, res) => {
 });
 
 app.get('/api/prescriptions/patient/:name', (req, res) => {
-  const patientName = req.params.name;
-  db.all('SELECT * FROM prescriptions WHERE patient_name = ? ORDER BY id DESC', [patientName], (err, rows) => {
+  const patientName = (req.params.name || '').trim();
+  db.all('SELECT * FROM prescriptions WHERE LOWER(TRIM(patient_name)) = LOWER(TRIM(?)) ORDER BY id DESC', [patientName], (err, rows) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
