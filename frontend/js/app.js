@@ -3,7 +3,8 @@ let currentRole = null;
 let socket = null;
 let prescriptions = [];
 
-const API_URL = 'http://localhost:3000/api';
+const isFileProtocol = window.location.protocol === 'file:';
+const API_URL = isFileProtocol ? 'http://localhost:3000/api' : '/api';
 
 document.addEventListener('DOMContentLoaded', () => {
     const savedPatient = localStorage.getItem('pharmaCheck_patientName');
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function setupSocket() {
-    socket = io('http://localhost:3000');
+    socket = isFileProtocol ? io('http://localhost:3000') : io();
 
     socket.on('connect', () => {
         console.log('Connected to real-time server');
